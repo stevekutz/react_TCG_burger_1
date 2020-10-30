@@ -6,14 +6,23 @@ const buildControl = (props) => {
 
 
     return (
-        <div>
-            <div className = {classes.BuildControl}> {props.label}</div>
-            <button className = {classes.BuildControlbutton , classes.BuildControlLess}>Less</button>
-            <button className = {classes.BuildControlbutton , classes.BuildControlMore}>More</button>
-        </div>
+
+            <div className = {classes.BuildControl}> 
+                    <div className = {classes.Label}> {props.label}</div>
+        
+                    <button className = {classes.Less}>Less</button>
+                    <button className = {classes.More}>More</button>
+    
+            </div>
+        
     
     )
 
 }
 
 export default buildControl;
+
+/*
+                    <button className = {cx(classes.BuildControlbutton, classes.BuildControlLess)}>Less</button>
+                    <button className = {cx(classes.BuildControlbutton, classes.BuildControlMore)}>More</button>
+*/                    
