@@ -21,7 +21,8 @@ class BurgerBuilder extends React.Component {
             meat: 0,
             
             },
-        totalPrice: 4,  
+        totalPrice: 4, 
+        checkout: false, 
 
     
     }
@@ -38,6 +39,7 @@ class BurgerBuilder extends React.Component {
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice + priceAddition;
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients})
+        this.handler_updateCheckout(updatedIngredients);
 
     }
 
@@ -57,7 +59,18 @@ class BurgerBuilder extends React.Component {
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice - priceAddition;
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients})
+        this.handler_updateCheckout(updatedIngredients);
+    }
+
+    handler_updateCheckout = (ingredients) => {
+        // const ingredients_copy = {
+        //     ...this.state.ingredients
+        // };
+        const sum = Object.keys(ingredients)
+            .map(ingred_key => ingredients[ingred_key])
+            .reduce((acc, cur) => acc + cur, 0)
     
+        this.setState({checkout: sum > 0});
     }
 
 
@@ -78,6 +91,8 @@ class BurgerBuilder extends React.Component {
                     ingredientAdded = {this.handler_addIngredient}
                     ingredientRemoved = {this.handler_removeIngredient}
                     disabled = {disabledInfo}
+                    price = {this.state.totalPrice}
+                    checkout = {this.state.checkout}
                 />
             
             
