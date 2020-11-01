@@ -25,6 +25,7 @@ class BurgerBuilder extends React.Component {
             },
         totalPrice: 4, 
         checkout: false, 
+        checkingOut: false,
 
     
     }
@@ -75,6 +76,15 @@ class BurgerBuilder extends React.Component {
         this.setState({checkout: sum > 0});
     }
 
+    handler_checkingOut = () => {
+    
+        this.setState({checkingOut: true})
+    }
+
+    handler_cancelCheckingOut = () => {
+        this.setState({checkingOut: false})
+    
+    }
 
     render() {
     
@@ -88,7 +98,10 @@ class BurgerBuilder extends React.Component {
     
         return (
             <Aux>
-                <Modal>
+                <Modal
+                    show = {this.state.checkingOut}
+                    modalClosed = {this.handler_cancelCheckingOut}     
+                >
                     <OrderSummary 
                         ingredients = {this.state.ingredients}
                         price = {this.state.totalPrice}
@@ -101,6 +114,7 @@ class BurgerBuilder extends React.Component {
                     disabled = {disabledInfo}
                     price = {this.state.totalPrice}
                     checkout = {this.state.checkout}
+                    ordered = {this.handler_checkingOut}
                 />
             
             
