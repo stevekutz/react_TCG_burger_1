@@ -86,6 +86,12 @@ class BurgerBuilder extends React.Component {
     
     }
 
+    handler_checkoutContinue = () => {
+        alert(' Continue Checkout ')
+    
+    }
+
+
     render() {
     
         const disabledInfo = {
@@ -105,6 +111,9 @@ class BurgerBuilder extends React.Component {
                     <OrderSummary 
                         ingredients = {this.state.ingredients}
                         price = {this.state.totalPrice}
+                        checkoutCancelled = {this.handler_cancelCheckingOut}
+                        checkoutContinue = {this.handler_checkoutContinue}
+
                         />
                 </Modal>
                 <Burger ingredients = {this.state.ingredients}/> 
@@ -116,7 +125,6 @@ class BurgerBuilder extends React.Component {
                     checkout = {this.state.checkout}
                     ordered = {this.handler_checkingOut}
                 />
-            
             
             </Aux>
         )
