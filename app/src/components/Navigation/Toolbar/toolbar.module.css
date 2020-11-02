@@ -19,3 +19,9 @@
     height: 100%;
 
 }
+
+
+/*  even though .Logo used in sidedrawer.module.css, it will get hashed into its own unique class by CSS modules */
+.Logo {
+    height: 80%;
+}
