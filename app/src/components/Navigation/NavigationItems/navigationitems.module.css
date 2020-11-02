@@ -4,7 +4,16 @@
     height: 100%;
     list-style: none;
     display: flex;
+    flex-direction: column;
     align-items: center;
     
+
+}
+
+/*  media query for desktop VVV  */ 
+@media (min-width: 500px) {
+    .NavigationItems {
+        flex-flow: row;
+    }
 
 }
