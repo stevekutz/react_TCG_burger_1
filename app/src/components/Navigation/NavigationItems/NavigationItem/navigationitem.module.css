@@ -13,9 +13,9 @@
     color: #8F5C2C;
     text-decoration: none;
     width: 100%;
-    border-bottom: 4px solid transparent;
+    /*  order-bottom: 4px solid transparent;  */
     box-sizing: border-box;
-
+    display: block;
 }
 
 .NavigationItem a:hover,
