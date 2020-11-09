@@ -10,5 +10,18 @@
    - `assets` for any image files
 
 
+Firebase EndPoint
 
+`https://react-burger-b1810.firebaseio.com/`
 
+Rules
+
+`
+{
+  "rules": {
+    ".read": "true",  // 2020-12-8
+    ".write": "true",  // 2020-12-8
+  }
+}
+
+`
