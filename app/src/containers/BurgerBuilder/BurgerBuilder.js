@@ -18,13 +18,7 @@ const INGREDIENT_PRICES = {
 
 class BurgerBuilder extends React.Component {
     state = {
-        ingredients: {
-            lettuce: 0,
-            cheese: 0,
-            bacon: 0,
-            meat: 0,
-            
-            },
+        ingredients: null,
         totalPrice: 4, 
         checkout: false, 
         checkingOut: false,
@@ -33,15 +27,16 @@ class BurgerBuilder extends React.Component {
     
     }
 
-    // componentDidMount () {
-    //     axios.get('https://react-burger-b1810.firebaseio.com/ingredients.json')
-    //         .then(response => {
-    //             this.setState({ ingredients: response.data})    
-    //         })
-    //         .catch(error => {
-    //             this.setState({ error: true })
-    //         })
-    // }
+    // 
+    componentDidMount () {
+        axios.get('https://react-burger-b1810.firebaseio.com/ingredients.json')
+            .then(response => {
+                this.setState({ ingredients: response.data})    
+            })
+            .catch(error => {
+                this.setState({ error: true })
+            })
+    }
 
 
     handler_addIngredient  = (type) => {
@@ -143,18 +138,36 @@ class BurgerBuilder extends React.Component {
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
-    
-        let orderSummary =   <OrderSummary 
-                                ingredients = {this.state.ingredients}
-                                price = {this.state.totalPrice}
-                                checkoutCancelled = {this.handler_cancelCheckingOut}
-                                checkoutContinue = {this.handler_checkoutContinue}
 
-                            />
+        let orderSummary = null;
+        let burger = this.state.error ? <p> Ingredients cannot be loaded </p> : <Spinner />
+
+
+        if (this.state.ingredients) {
+            burger = (
+                <Aux>
+                    <Burger ingredients = {this.state.ingredients}/> 
+                    <BuildControls 
+                        ingredientAdded = {this.handler_addIngredient}
+                        ingredientRemoved = {this.handler_removeIngredient}
+                        disabled = {disabledInfo}
+                        price = {this.state.totalPrice}
+                        checkout = {this.state.checkout}
+                        ordered = {this.handler_checkingOut}
+                    />
+                </Aux>
+            );
+        
+            orderSummary =   <OrderSummary 
+                                    ingredients = {this.state.ingredients}
+                                    price = {this.state.totalPrice}
+                                    checkoutCancelled = {this.handler_cancelCheckingOut}
+                                    checkoutContinue = {this.handler_checkoutContinue}
+                                />   
+        }
 
         if (this.state.loading) {
-            orderSummary = <Spinner />
-        
+            orderSummary = <Spinner />        
         }
 
         return (
@@ -163,23 +176,11 @@ class BurgerBuilder extends React.Component {
                     show = {this.state.checkingOut}
                     modalClosed = {this.handler_cancelCheckingOut}     
                 >
-
                     {orderSummary}
-
                 </Modal>
-                <Burger ingredients = {this.state.ingredients}/> 
-                <BuildControls 
-                    ingredientAdded = {this.handler_addIngredient}
-                    ingredientRemoved = {this.handler_removeIngredient}
-                    disabled = {disabledInfo}
-                    price = {this.state.totalPrice}
-                    checkout = {this.state.checkout}
-                    ordered = {this.handler_checkingOut}
-                />
-            
+                {burger}            
             </Aux>
-        )
-    
+        )    
     }
 
 }
